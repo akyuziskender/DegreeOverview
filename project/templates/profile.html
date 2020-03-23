@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-6">
+
+    <div class="d-flex">
+      <h5 class="col p-0 font-weight-bold">User Information</h5>
+      <a href="updateProfile" class="csStdLink float-right text-decoration-none">Edit</a>  
+    </div>
+
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="font-weight-bold">User Type</td>
+          <td> {{ user.type }} </td>
+        </tr>
+        <tr>
+          <td class="font-weight-bold">Name</td>
+          <td> {{ user.name }} {{ user.surname }} </td>
+        </tr>
+        <tr>
+          <td class="font-weight-bold">Department</td>
+          <td> {{ user.department }} </td>
+        </tr>
+        <tr>
+          {% if user.user_type == 'Instructor' %}
+            <td class="font-weight-bold">Title</td>
+          {% else %}
+            <td class="font-weight-bold">Student Number</td>
+          {% endif %}
+          <td> {{ user.private_info }} </td>
+        </tr>
+        <tr>
+          <td class="font-weight-bold">Email</td>
+          <td> {{ user.email }} </td>
+        </tr>
+        <tr>
+          <td class="font-weight-bold">Password</td>
+          <td>********</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <a href="{{ url_for('logout') }}" id="idDanger" class="btn float-right">Logout</a>
+    <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.delete(class="btn float-left")}}
+    </form>
+
+  </div>
+</div>
+{% endblock content%}
+

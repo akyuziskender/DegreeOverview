@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div id="idInstructorName" class="row">
+      <h1 class="col-5">{{ instructor.name }}</h1>
+    </div>
+
+    <hr>
+    
+    <div class="row">
+      
+      <div class="col-5 float-right">
+        <ul class="list-group font-weight-bold">
+          <li class="list-group-item d-flex justify-content-between align-items-center bg-warning">
+            {{ instructor.title }}
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ instructor.department }}
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ instructor.email }}
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Given Courses
+            <span class="badge badge-primary badge-pill">{{ instructor.course_count }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col">
+        <div class="container">
+          <div class="list-group ">
+            {% if instructor.courses %}
+            {% for course in instructor.courses %}
+            <div class="list-group-item list-group-item-action d-flex flex-column p-2">
+
+              <div class="d-flex">
+                <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
+                  <div class="col-3 p-0 font-weight-bold">{{ course.code }}</div> 
+                  <div class="col-5 p-0 pl-1">
+                    {% if course.prerequisites %}
+                      {{ course.prerequisites }}
+                    {% else %}
+                      None
+                    {% endif %}
+                  </div>
+                  <div class="col 3 p-0">
+                    {% if course.outcomes %}           
+                      {{ course.outcomes }}
+                    {% else %}
+                      None
+                    {% endif %}
+                  </div>
+                </a>
+                <div class="container">
+                  <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="collapse" data-target="#expand-id"><i class='fas fa-plus'></i></button>
+                </div>
+              </div>
+              <div>
+                <div id="expand-id" class="collapse btn-group btn-group float-right pt-2">
+                  <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">AA</button>
+                  <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">BA</button>
+                  <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">BB</button>
+                  <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">CB</button>
+                  <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">CC</button>
+                  <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">DC</button>
+                  <button type="button" class="btn btn-outline-warning font-weight-bold btn-sm">DD</button>
+                  <button type="button" class="btn btn-outline-danger font-weight-bold btn-sm">FF</button>
+                  <button type="button" class="btn btn-outline-dark font-weight-bold btn-sm">VF</button>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          </div>
+        </div>
+      </div>
+
+    
+    </div>
+{% endblock content%}

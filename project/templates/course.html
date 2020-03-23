@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <div class="row justify-content-center mt-5">
+    <div class="col-7 d-flex flex-column">
+      {% if user_type == "instructor" %}
+      <div class="d-flex justify-content-end">
+        <a href="{{ url_for('courseEdit', course_id=course_id )}}" id="idDanger" class="btn float-right text-center mr-2" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; background-color: #2e2e2e;">Edit</a>
+        <a href="{{ url_for('courseDelete', course_id=course_id) }}" id="idDanger" class="btn float-right text-center mr-2" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Delete Course</a>
+      </div>
+      {% endif %}
+        <ul class="list-group">
+          
+          <li class="list-group-item d-flex active">
+            <div class="col font-weight-bold display-5"> {{ course.course_code }} </div>
+            <div class="col font-weight-bold">{{ course.course_name }}</div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Department</div>
+            <div class="col"> {{ course.department}} </div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Lecturer</div>
+            <div class="col">{{ course.instructor }}</div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Prerequisite/s</div>
+            <div class="col">
+              {% if course.prerequisites %}
+                {% for requisite in course.prerequisites %}
+                <a href="{{ url_for('course', course_id=requisite.course_id) }}">{{ requisite.name }}</a>
+                {% endfor %}
+              {% else %}
+                None
+              {% endif %}
+            </div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Outcome/s</div>
+            <div class="col">
+              {% if course.prerequisites %}
+                {{ course.outcomes }}
+              {% else %}
+                None
+              {% endif %}
+            </div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">CRN</div>
+            <div class="col"><span class="badge badge-primary badge-pill">{{ course.crn }}</span></div>
+          </li>
+          <li class="list-group-item d-flex">
+            <div class="col font-weight-bold">Credit</div>
+            <div class="col"><span class="badge badge-primary badge-pill">{{ course.credit }}</span></div>
+          </li>
+          <li class="list-group-item text-center">
+            <form method="POST" action="" >
+            
+              {{ form.hidden_tag() }}
+              <div class="btn-group btn-group d-flex p-1">
+                {% if student_grade == '-' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'AA' %}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">AA</button>
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'BA' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">BA</button>
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'BB' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">BB</button>
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'CB' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">CB</button>
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'CC' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">CC</button>
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'DC' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">DC</button>
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'DD' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">DD</button>
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'VF' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">VF</button>
+                  {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                {% endif %}
+                {% if student_grade == 'FF' %}
+                  {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                  {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                  <button type="button" class="btn btn-info font-weight-bold btn-sm">FF</button>
+                {% endif %}
+              </div>
+            
+            </form>
+          </li>
+        </ul>
+        {% if user_type == "student" %}
+          {% if student_grade != "-" %}
+            <a href="{{ url_for('deleteGrade', course_id=course_id )}}" id="idDanger" class="list-group-item float-right text-center" style="margin-left : 30em; margin-right: 1em;">Remove Grade</a>
+          {% endif %}
+        {% endif %}
+    </div>
+  </div>
+{% endblock content%}

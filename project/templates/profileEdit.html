@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div>
+
+    <div>  
+      <h4 class="col p-0 font-weight-bold">User Information</h4>
+      <hr>
+    </div>
+
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        <div class="input-group mb-3">
+          {% if form.name.errors %}
+          {{ form.name(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.name.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% else %}
+          {{ form.name(class="form-control bg-light") }}
+          {% endif %}
+
+          {% if form.surname.errors %}
+          {{ form.surname(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.surname.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% else %}
+          {{ form.surname(class="form-control bg-light") }}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group ">
+        {{ form.department(class="form-group custom-select bg-ligh") }}
+      </div>
+
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          {% if user_id == 1 %}
+            <span class="input-group-text">Title</span>
+          {% else %}
+            <span class="input-group-text">Student Number</span>
+          {% endif %}
+        </div>
+          {% if form.private_info.errors %}
+          {{ form.private_info(class="form-control form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.private_info.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+          {% else %}
+          {{ form.private_info(class="form-control bg-light")}}
+          {% endif %}
+        
+      </div>
+
+      <div class="form-group form-check pl-0 float-right">
+        {{ form.submit(class="csStdLink") }}
+      </div>
+
+    </form>
+
+    <form method="POST" action="">
+      {{ passForm.hidden_tag() }}
+        <div class="form-group ">
+            {% if passForm.password.errors %}
+            {{ passForm.password(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in passForm.password.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ passForm.password(class="form-control bg-light", placeholder="New password") }}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {% if passForm.confirm_password.errors %}
+            {{ passForm.confirm_password(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in passForm.confirm_password.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+              {{ passForm.confirm_password(class="form-control bg-light", placeholder="Confirm new password") }}
+            {% endif %}
+        </div>
+
+        <div class="form-group form-check pl-0 float-right">
+          {{ passForm.submit(class="csStdLink", id="submit2") }}
+        </div>
+
+    </form> 
+  
+  </div>
+</div>
+{% endblock content%}

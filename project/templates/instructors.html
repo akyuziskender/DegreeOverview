@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="row justify-content-center">
+
+    <div class="col-sm-4">
+
+      <input class="form-control mb-3" id="myInput" type="text" placeholder="Search For Instructors">
+
+      <form>
+        <select name="soft-department" class="custom-select mb-2">
+          <option selected>Faculty</option>
+
+          <option value="volvo">Faculty of Computer and Informatics Engineering</option>
+          <option value="fiat">Faculty of Civil Engineering</option>
+          <option value="audi">Faculty of Electrical and Electronic Engineering</option>
+        </select>
+        <button type="submit" class="btn btn-outline-primary mt-2 float-right">Bring</button>
+      </form>
+
+    </div>
+
+    <div class="col-sm-8">
+      <div class="container">
+
+        {% if instructor_count > 1 %}
+          <h5>{{ instructor_count }} instructors were found</h5>
+        {% else %}
+          <h5>{{ instructor_count }} instructor was found</h5>
+        {% endif %}
+        <hr>
+
+        <div id="accordion" class="list-group ">
+          {% if instructors %}
+            {% for instructor in instructors %}
+            <li class="mb-1" style="list-style: none;">
+              <a href="{{ url_for('instructor', instructor_id=instructor.instructor_id) }}" class="list-group-item list-group-item-action d-flex p-2  bg-light">
+                <div class="col-5 font-weight-bold">{{ instructor.name }}</div>
+                <div class="col">{{ instructor.faculty }}</div>
+              </a>
+            </li>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <script>
+          $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#accordion li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+        </script>
+
+      </div>
+    </div>
+
+  </div>
+{% endblock content%}

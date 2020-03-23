@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="row justify-content-center">
+    
+        <div class="col-sm-8 mt-5">
+            <div class="container col-6">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend p-0" style="height: 100%;">
+                            <span class="input-group-text">{{ form.name.label.text }}</span>
+                        </div>
+                        {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.name(class="form-control bg-light") }}
+                        {% endif %}
+                    </div>
+                        <div class="form-group form-check pl-0 float-right">
+                            {{ form.submit(class="csStdLink mt-1") }}
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content%}

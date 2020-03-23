@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  {% if title %}
+    <title>DEWO - {{ title }}</title>
+  {% else %}
+    <title>DEWO</title>
+  {% endif %}
+
+  <!-- EXCLUSIVE CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style/style.css') }}">
+  <!-- BOOSTSTRAP VS. -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- FOR LISTING USER'S COURSES -->
+  <script src="{{ url_for('static', filename='js/go.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/courseFlow.js') }}"></script>
+  <!-- FOR ICONS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+
+<body id="{{ title }}body" onload="init()">
+
+  <nav id ="id-navbar" class="navbar navbar-expand-sm fixed-top ">
+    {% if title == 'Register' %}
+      <div class="navbar-collapse justify-content-center font-weight-bold">
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+      </div>
+    {% else %}
+      {% if title == 'Login' %}
+      <div class="navbar-collapse justify-content-center font-weight-bold">
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+      </div>
+      {% else %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
+          <ul class="navbar-nav font-weight-bold">
+            {% if title == 'Home' %}
+              <li class="nav-item soft-active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+            </li>
+
+            {% if title == 'Courses' %}
+              <li class="nav-item soft-active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+                <a class="nav-link" href="{{ url_for('courses') }}">COURSES</a>
+            </li>
+
+            {% if title == 'Instructors' %}
+              <li class="nav-item soft-active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+                <a class="nav-link" href="{{ url_for('instructors') }}">INSTRUCTORS</a>
+            </li>
+
+            {% if title == 'Profile' %}
+              <li class="nav-item soft-active">
+            {% else %}
+              <li class="nav-item">
+            {% endif %}
+                <a class="nav-link" href="{{ url_for('profile') }}">PROFILE</a>
+            </li>
+
+          </ul>
+        </div>
+      {% endif %}
+    {% endif %}
+  </nav>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Look out!</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <ul class=flashes>
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+    $(document).ready(function(){
+      // Show the Modal on load
+      $("#myModal").modal("show");
+
+      // Hide the Modal
+      $("#myBtn").click(function(){
+        $("#myModal").modal("hide");
+      });
+    });
+    </script>
+    {% endif %}
+    {% endwith %}
+
+
+    <div id="{{ title }}" class="csMain container">
+      {% block content %}{% endblock %}
+    </div>
+
+
+  <div class="cs-footer fixed-bottom">
+    <p>Copyright © 2019, All Rights Reserved</p>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

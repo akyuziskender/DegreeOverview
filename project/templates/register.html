@@ -1,0 +1,131 @@
+﻿{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center">
+      <div class="d-flex flex-column">
+          <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <div class="form-group">
+                  <div class="input-group mb-3">
+                      {% if form.name.errors %}
+                      {{ form.name(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.name.errors %}
+                          <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                      {% else %}
+                      {{ form.name(class="form-control bg-light") }}
+                      {% endif %}
+
+                      {% if form.surname.errors %}
+                      {{ form.surname(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.surname.errors %}
+                          <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                      {% else %}
+                      {{ form.surname(class="form-control bg-light") }}
+                      {% endif %}
+                  </div>
+              </div>
+
+              <div class="form-group ">
+                  <div class="input-group mb-3">
+                      {% if form.email.errors %}
+                      {{ form.email(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.email.errors %}
+                          <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                      {% else %}
+                      {{ form.email(class="form-control bg-light") }}
+                      {% endif %}
+                      <div class="input-group-append"><span class="input-group-text">@itu.edu.tr</span></div>
+                  </div>
+              </div>
+
+              <div class="form-group ">
+                  {% if form.password.errors %}
+                  {{ form.password(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.password.errors %}
+                      <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form.password(class="form-control bg-light") }}
+                  {% endif %}
+              </div>
+
+              <div class="form-group">
+                  {% if form.confirm_password.errors %}
+                  {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.confirm_password.errors %}
+                      <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+                  {% else %}
+                  {{ form.confirm_password(class="form-control bg-light") }}
+                  {% endif %}
+              </div>
+
+              <div class="form-group mb-0">
+                  {{ form.department(class="form-group custom-select bg-ligh") }}
+              </div>
+
+              <div class="form-group jumbotron m-0 p-2">
+                <!-- Nav pills -->
+                <ul class="nav nav-pills mt-0" role="tablist">
+                    <li class="nav-item mr-2">
+                    <a class="nav-link active csStdLink p-1 pl-2 pr-2" data-toggle="pill" href="#Instructor">Instructor</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link csStdLink p-1 pl-2 pr-2" data-toggle="pill" href="#Student">Student</a>
+                  </li>
+                </ul>
+              
+                <!-- Tab panes -->
+                <div class="tab-content" >
+
+                  <div id="Instructor" class="container tab-pane active input-group p-0">
+                      {% if form.title.errors %}
+                      {{ form.title(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.title.errors %}
+                          <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                      {% else %}
+                      {{ form.title(class="form-control bg-light") }}
+                      {% endif %}
+                  </div>
+
+                  <div id="Student" class="container tab-pane fade input-group p-0">
+                    {% if form.student_no.errors %}
+                    {{ form.student_no(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.student_no.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.student_no(class="form-control bg-light") }}
+                    {% endif %}
+                  </div>
+
+                </div>
+              </div>
+
+              <hr >
+
+              <div class="form-group form-check pl-0 float-right">
+                  {{ form.submit(class="csStdLink") }}
+              </div>
+
+          </form>  
+      </div>
+</div>
+{% endblock content%}

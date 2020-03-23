@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="row justify-content-center">
+
+    <div class="col-sm-4">
+
+      <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search For Course">
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" type="submit">Bring</button>
+          </div>
+      </div>
+
+
+      <form>
+        <select name="soft-department" class="custom-select mb-2">
+          <option selected>Department</option>
+          <option value="COEN">Computer Engineering</option>
+          <option value="ECEN">Electronics and Communication Engineering</option>
+          <option value="ARCH">Architecture</option>
+        </select>
+        <button type="submit" class="btn btn-outline-primary mt-2 float-right">Bring</button>
+      </form>
+
+    </div>
+
+    <div class="col-sm-8">
+      <div class="container">
+
+
+        {% if courses_count > 1 %}
+          <h5>{{ courses_count }} courses were found</h5>
+        {% else %}
+          <h5>{{ courses_count }} course was found</h5>
+        {% endif %}
+        <hr>
+
+        <div id="accordion">
+          {% if courses %}
+            {% for course in courses %}
+
+
+                <div class="card">
+                  <div class="card-header d-flex">
+
+                    <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 list-group-item-action">
+
+                <li class="card mb-1" >
+
+                  <div class="card-header d-flex bg-light list-group-item-action">
+
+                    <a href="{{ url_for('course', course_id=course.course_id) }}" class="d-flex col-10 pt-1 text-decoration-none" style="color: rgb(20, 20, 20);">
+                      <td><div class="col-3 p-0 font-weight-bold">{{ course.code }}</div></td>
+                      <div class="col-5 p-0 pl-1">
+                        {% if course.prerequisites %}
+                          {{ course.prerequisites }}
+                        {% else %}
+                          None
+                        {% endif %}
+                      </div>
+                      <div class="col-3 p-0 text-nowrap text-truncate">
+                        {% if course.outcomes %}
+                          {{ course.outcomes }}
+                        {% else %}
+                          None
+                        {% endif %}
+                      </div>
+                    </a>
+                    <div class="ml-auto">
+                      <a type="button" class="card-link btn btn-primary btn-sm" data-toggle="collapse" href="#{{ course.code }}"><i class='fas fa-plus'></i></a>
+                    </div>
+
+                  </div>
+                  <div id="{{ course.code }}" class="collapse" data-parent="#accordion">
+                    <form class="d-flex justify-content-end" method="POST" action="">
+                      {{ form.hidden_tag() }}
+                      <input type="hidden" id="course" name="course" value="{{course.course_id}}">
+                      <div class="card-body btn-group btn-group p-2" >
+                          {{ form.aa(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.ba(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.bb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.cb(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.cc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.dc(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.dd(class="btn btn-outline-warning font-weight-bold btn-sm")}}
+                          {{ form.vf(class="btn btn-outline-dark font-weight-bold btn-sm")}}
+                          {{ form.ff(class="btn btn-outline-danger font-weight-bold btn-sm")}}
+                      </div>
+                    </form>
+                  </div>
+                </li>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <script>
+          $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#accordion li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+        </script>
+
+      </div>
+    </div>
+
+  </div>
+{% endblock content%}

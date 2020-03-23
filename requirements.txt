@@ -1,0 +1,7 @@
+Flask>=1.0
+psycopg2-binary>=2.7
+gunicorn>=19.9
+flask_wtf
+cryptography
+jsonlib==1.2.1
+flask_login==0.4.1
